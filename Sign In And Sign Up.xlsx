@@ -1,0 +1,61 @@
+Private Sub BtnCreateAccount_Click()
+Dim Baris As Long
+
+With Sheet1
+    Baris = .Range("A1").End(xlDown).Offset(1, 0).Row
+    .Range("A" & Baris).Value = TbCreateName.Value
+    .Range("B" & Baris).Value = TbCreateUsername.Value
+    .Range("C" & Baris).Value = TbCreatePassword.Value
+End With
+MsgBox "Selamat data telah berhasil tersimpan !!!", vbInformation, "Berhasil Daftar"
+Call Bersih
+MultiPage1.Value = 0
+End Sub
+Sub Bersih()
+TbCreateName.Value = vbNullString
+TbCreateUsername.Value = vbNullString
+TbCreatePassword.Value = vbNullString
+End Sub
+
+Private Sub BtnSignIn1_Click()
+Dim TampUsername As String, TampPassword As String
+Dim DefaultUser As String, DefaultPass As String
+
+TampUsername = TbUsername.Text
+TampPassword = TbPassword.Text
+DefaultUser = "wahyu"
+DefaultPass = "123"
+
+If TampUsername = Empty Then
+    MsgBox "Silahkan isi Username !!!", vbInformation, "Peringatan"
+    TbUsername.SetFocus
+ElseIf TampPassword = Empty Then
+    MsgBox "Silahkan isi Password !!!", vbInformation, "Peringatan"
+    TbPassword.SetFocus
+ElseIf Login.GetLogin(TampUsername, TampPassword) Then
+    MsgBox "Login Berhasil", vbInformation, "Success"
+Else
+    MsgBox "Username atau Password salah !!!", vbCritical
+End If
+
+End Sub
+Private Sub BtnSignIn2_Click()
+MultiPage1.Value = 0
+End Sub
+
+Private Sub BtnSignUp1_Click()
+MultiPage1.Value = 1
+End Sub
+
+Private Sub CkShowPassword_Click()
+If CkShowPassword Then
+    TbPassword.PasswordChar = ""
+Else
+    TbPassword.PasswordChar = "*"
+End If
+End Sub
+
+
+Private Sub TbCreateName_Change()
+
+End Sub
